@@ -3,18 +3,7 @@ import FormVagas from '../../components/FormVagas'
 
 import Vaga from '../../components/Vaga'
 
-import styles from './ListaVagas.module.css'
-
-type Vaga = {
-  id: string
-  titulo: string
-  localizacao: string
-  nivel: string
-  modalidade: string
-  salarioMin: number
-  salarioMax: number
-  requisitos: string[]
-}
+import { Lista, ResultadoPesquisa, SemResultados } from './styles'
 
 const vagas = [
   {
@@ -92,14 +81,18 @@ const vagas = [
 const ListaVagas = () => {
   const [filtro, setFiltro] = useState<string>('')
 
-  const vagasFiltradas = vagas.filter(
-    (x) => x.titulo.toLocaleLowerCase().search(filtro) >= 0
+  const vagasFiltradas = vagas.filter((x) =>
+    x.titulo.toLocaleLowerCase('pt-BR').includes(filtro)
   )
 
   return (
     <div>
       <FormVagas aoPesquisar={(termo: string) => setFiltro(termo)} />
-      <ul className={styles.vagas}>
+      <ResultadoPesquisa role="status" aria-live="polite">
+        {vagasFiltradas.length}{' '}
+        {vagasFiltradas.length === 1 ? 'vaga encontrada' : 'vagas encontradas'}
+      </ResultadoPesquisa>
+      <Lista aria-label="Vagas encontradas">
         {vagasFiltradas.map((vag) => (
           <Vaga
             key={vag.id}
@@ -112,7 +105,13 @@ const ListaVagas = () => {
             requisitos={vag.requisitos}
           />
         ))}
-      </ul>
+      </Lista>
+      {vagasFiltradas.length === 0 ? (
+        <SemResultados>
+          Nenhuma vaga encontrada. Tente outro título ou pesquise com o campo
+          vazio para ver todas.
+        </SemResultados>
+      ) : null}
     </div>
   )
 }

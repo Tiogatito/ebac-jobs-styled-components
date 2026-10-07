@@ -1,46 +1,52 @@
-# Getting Started with Create React App
+# EBAC Jobs — Styled Components
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Exercício do módulo 29: conversão dos estilos do projeto EBAC Jobs para Styled Components.
 
-## Available Scripts
+Este repositório é um fork de [ogiansouza/base_exercicio_css_in_js](https://github.com/ogiansouza/base_exercicio_css_in_js). Foram preservados o conteúdo das sete vagas, a fotografia do hero, as fontes Lato e Gloock, a estrutura da página e a paleta principal do material.
 
-In the project directory, you can run:
+## Executar
 
-### `npm start`
+Requisitos: Node.js 24.x e npm.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```sh
+npm ci
+npm run dev
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Compilar
 
-### `npm test`
+```sh
+npm run build
+npm run preview
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`npm run format` aplica a formatação do Prettier com a configuração fornecida na base.
 
-### `npm run build`
+O build verifica os tipos TypeScript e gera a pasta `dist`. A configuração `vercel.json` usa esse comando e essa pasta para a publicação.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Conversão dos estilos
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+| Parte solicitada | Implementação                         |
+| ---------------- | ------------------------------------- |
+| Cabeçalho        | `src/components/Cabecalho/styles.ts`  |
+| Hero             | `src/components/Hero/styles.ts`       |
+| Formulário       | `src/components/FormVagas/styles.ts`  |
+| Vaga             | `src/components/Vaga/styles.ts`       |
+| ListaVagas       | `src/containers/ListaVagas/styles.ts` |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Todos os estilos da aplicação são definidos com Styled Components, sem arquivos CSS ou CSS Modules. `createGlobalStyle` concentra o reset e os estilos globais. `ThemeProvider` fornece cores e breakpoints tipados. `styled(Botao)` e `styled(Container)` reutilizam estilos; seletores aninhados e media queries tratam estados e telas pequenas. Os componentes estilizados são declarados fora das funções de renderização.
 
-### `npm run eject`
+## Ajustes na base
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Create React App foi substituído por Vite; React, TypeScript e Styled Components foram atualizados. O lockfile fixa as dependências.
+- A pesquisa usa comparação literal, ignorando maiúsculas e espaços nas extremidades. Caracteres como `[` não são interpretados como expressão regular.
+- Contagem e mensagem de ausência de resultados são anunciadas com `aria-live`.
+- Formulário com rótulo acessível, foco visível, campos e botões adaptados ao celular.
+- A paleta original recebeu um tom mais escuro para textos e ações, melhorando o contraste.
+- O link demonstrativo sem destino foi substituído por detalhes em um diálogo nativo, que pode ser fechado pelo botão ou pela tecla Escape.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Material e limites
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+A fotografia original está em `public/images/hero.jpg`, evitando depender de uma requisição externa para carregá-la. Sua origem é [a imagem Pixabay usada na base](https://cdn.pixabay.com/photo/2018/08/10/15/45/woman-3597101_1280.jpg). Os ícones em `public` também vieram do projeto original. As fontes são carregadas pelo Google Fonts.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+As vagas são exemplos estáticos do material de apoio. Não há backend, cadastro ou envio de candidaturas.
